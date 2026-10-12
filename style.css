@@ -1,0 +1,221 @@
+/* =====================================================
+   ESTILO DO FÃ CLUBE
+   Dica: para mudar as cores do site inteiro,
+   edite apenas as variáveis dentro de :root logo abaixo.
+   ===================================================== */
+
+:root {
+  /* Tons de rosa (do mais claro ao mais forte) */
+  --rosa-50:  #fff7fa;
+  --rosa-100: #ffeef4;
+  --rosa-200: #ffdce9;
+  --rosa-300: #ffc2d9;
+  --rosa-400: #ff9ec4;
+  --rosa-500: #f77fae;
+
+  /* Vermelho do laço (detalhe Hello Kitty) */
+  --laco: #e5434f;
+
+  /* Textos */
+  --texto: #5b3a48;
+  --texto-suave: #8c6a79;
+
+  /* Visual geral */
+  --sombra: 0 10px 30px rgba(247, 127, 174, .18);
+  --raio: 22px;
+}
+
+/* ---------- Base ---------- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+body {
+  font-family: 'Quicksand', system-ui, sans-serif;
+  color: var(--texto);
+  line-height: 1.6;
+  background: linear-gradient(180deg, var(--rosa-50) 0%, var(--rosa-100) 100%);
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+.container { width: min(1120px, 92%); margin-inline: auto; }
+main, .rodape { position: relative; z-index: 1; }
+
+/* Laço (ícone) */
+.laco { width: 34px; height: 22px; color: var(--laco); }
+
+/* ---------- Topo ---------- */
+.topo {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(255, 247, 250, .85);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--rosa-200);
+}
+.topo__conteudo { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+.logo { display: flex; align-items: center; gap: 10px; font-family: 'Pacifico', cursive; font-size: 1.3rem; color: var(--rosa-500); }
+.menu { display: flex; gap: 22px; font-weight: 600; font-size: .95rem; }
+.menu a { padding: 6px 2px; border-bottom: 2px solid transparent; transition: .2s; }
+.menu a:hover { color: var(--rosa-500); border-color: var(--rosa-300); }
+
+/* ---------- Botão ---------- */
+.btn {
+  display: inline-block; border: 0; cursor: pointer;
+  font: inherit; font-weight: 700; color: #fff;
+  background: linear-gradient(135deg, var(--rosa-400), var(--rosa-500));
+  padding: 13px 28px; border-radius: 999px;
+  box-shadow: 0 8px 20px rgba(247, 127, 174, .35);
+  transition: transform .2s, box-shadow .2s;
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 12px 26px rgba(247, 127, 174, .45); }
+.btn:active { transform: scale(.97); }
+
+/* ---------- Início (hero) ---------- */
+.hero { text-align: center; padding: 70px 0 50px; }
+.hero__laco {
+  width: 92px; height: 58px; color: var(--laco); margin: 0 auto 6px;
+  filter: drop-shadow(0 6px 10px rgba(229, 67, 79, .25));
+  animation: balancar 4s ease-in-out infinite;
+}
+.selo {
+  display: inline-block; background: #fff; border: 2px solid var(--rosa-200);
+  padding: 6px 16px; border-radius: 999px;
+  font-weight: 700; font-size: .8rem; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--rosa-500);
+}
+.hero h1 {
+  font-family: 'Pacifico', cursive; font-weight: 400;
+  font-size: clamp(2.2rem, 7vw, 4rem); line-height: 1.2;
+  color: var(--rosa-500); margin: 18px 0 10px;
+}
+.hero p { max-width: 560px; margin: 0 auto 28px; color: var(--texto-suave); font-size: 1.1rem; }
+
+.estatisticas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 44px; }
+.estat {
+  background: #fff; border: 2px solid var(--rosa-200); border-radius: var(--raio);
+  padding: 18px 10px; box-shadow: var(--sombra);
+}
+.estat strong { display: block; font-size: 1.9rem; line-height: 1.2; color: var(--rosa-500); }
+.estat span { font-size: .85rem; color: var(--texto-suave); }
+
+/* ---------- Seções ---------- */
+.secao { padding: 56px 0; }
+.secao__titulo { text-align: center; margin-bottom: 36px; }
+.secao__titulo h2, .carta h2 {
+  font-family: 'Pacifico', cursive; font-weight: 400;
+  font-size: clamp(1.7rem, 5vw, 2.4rem); color: var(--rosa-500);
+}
+.secao__titulo p { color: var(--texto-suave); }
+.divisor { display: flex; align-items: center; justify-content: center; gap: 14px; margin: 8px auto 10px; max-width: 260px; }
+.divisor::before, .divisor::after { content: ""; flex: 1; height: 2px; background: var(--rosa-200); border-radius: 2px; }
+
+/* ---------- Galeria ---------- */
+.grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 26px; }
+
+.cartao {
+  display: flex; flex-direction: column; overflow: hidden;
+  background: #fff; border: 2px solid var(--rosa-200); border-radius: var(--raio);
+  box-shadow: var(--sombra);
+  opacity: 0; transform: translateY(24px);               /* estado inicial (animação de entrada) */
+  transition: opacity .6s, transform .6s, box-shadow .3s;
+}
+.cartao.visivel { opacity: 1; transform: none; }
+.cartao:hover { box-shadow: 0 16px 36px rgba(247, 127, 174, .28); }
+
+.moldura {
+  position: relative; aspect-ratio: 4 / 5; overflow: hidden;
+  background: var(--rosa-100); cursor: zoom-in;
+}
+.moldura img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
+.cartao:hover .moldura img { transform: scale(1.04); }
+.moldura.sem-foto::after {                                /* aparece se a foto não carregar */
+  content: "🎀 Coloque a foto aqui";
+  position: absolute; inset: 0; display: grid; place-items: center;
+  font-weight: 700; color: var(--rosa-500);
+}
+
+.cartao__corpo { padding: 16px 16px 20px; text-align: center; }
+.cartao__titulo { font-size: 1.05rem; margin-bottom: 12px; }
+
+.btn-elogio {
+  border: 2px solid var(--rosa-300); background: var(--rosa-50); color: var(--rosa-500);
+  font: inherit; font-weight: 700; font-size: .92rem;
+  padding: 9px 18px; border-radius: 999px; cursor: pointer; transition: .2s;
+}
+.btn-elogio:hover { background: var(--rosa-400); border-color: var(--rosa-400); color: #fff; }
+.btn-elogio:active { transform: scale(.96); }
+
+/* Caixa do elogio (abre com animação) */
+.elogio { max-height: 0; opacity: 0; overflow: hidden; transition: max-height .5s, opacity .5s, margin .3s; }
+.elogio.aberto { max-height: 160px; opacity: 1; margin-top: 14px; }
+.elogio p {
+  background: var(--rosa-50); border: 2px dashed var(--rosa-300);
+  border-radius: 16px; padding: 12px 14px; font-weight: 500;
+}
+
+/* ---------- Carta ---------- */
+.carta {
+  position: relative; max-width: 720px; margin: 18px auto 0; text-align: center;
+  background: #fff; border: 2px solid var(--rosa-200); border-radius: 28px;
+  padding: 44px 32px 36px; box-shadow: var(--sombra);
+}
+.carta > .laco {
+  position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
+  width: 64px; height: 40px;
+}
+.carta h2 { margin-bottom: 18px; }
+.carta p { margin-bottom: 14px; }
+.assinatura { font-family: 'Pacifico', cursive; color: var(--rosa-500); font-size: 1.3rem; margin-top: 18px; }
+
+/* ---------- Rodapé ---------- */
+.rodape { text-align: center; padding: 36px 0 44px; color: var(--texto-suave); font-size: .95rem; }
+.rodape .laco { margin: 0 auto 8px; }
+
+/* ---------- Ampliar foto (lightbox) ---------- */
+.lightbox {
+  position: fixed; inset: 0; z-index: 100; display: none; align-items: center; justify-content: center;
+  padding: 20px; background: rgba(91, 58, 72, .72); backdrop-filter: blur(4px);
+}
+.lightbox.aberto { display: flex; }
+.lightbox img { max-height: 88vh; border-radius: 20px; border: 6px solid #fff; box-shadow: 0 20px 50px rgba(0, 0, 0, .3); }
+.lightbox__fechar { position: absolute; top: 14px; right: 22px; background: none; border: 0; color: #fff; font-size: 2.4rem; cursor: pointer; }
+
+/* ---------- Efeitos ---------- */
+/* Corações que sobem quando clica no botão de elogio */
+.coracao-voando {
+  position: fixed; z-index: 200; pointer-events: none; font-size: 18px;
+  animation: subir 1s ease-out forwards;
+}
+@keyframes subir {
+  0%   { opacity: 1; transform: translate(0, 0) scale(.6); }
+  100% { opacity: 0; transform: translate(var(--dx), -90px) scale(1.3); }
+}
+
+/* Texto do elogio aparecendo */
+@keyframes surgir { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.elogio.aberto p { animation: surgir .5s; }
+
+/* Laço balançando no início */
+@keyframes balancar { 0%, 100% { transform: rotate(-4deg); } 50% { transform: rotate(4deg); } }
+
+/* Corações/laços de fundo */
+.fundo { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+.fundo span { position: absolute; bottom: -40px; opacity: .45; animation: flutuar linear infinite; }
+@keyframes flutuar { to { transform: translateY(-115vh) rotate(25deg); } }
+
+/* ---------- Celular ---------- */
+@media (max-width: 600px) {
+  .menu { gap: 14px; font-size: .88rem; }
+  .estatisticas { gap: 8px; }
+  .estat { padding: 14px 6px; }
+  .estat strong { font-size: 1.5rem; }
+  .estat span { font-size: .72rem; }
+  .carta { padding: 40px 20px 30px; }
+}
+
+/* Respeita quem prefere menos animação */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .cartao { opacity: 1; transform: none; }
+}
